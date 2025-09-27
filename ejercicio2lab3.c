@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h> // libreria para rand y srand
+#include <time.h> // para crear verdadera aleatoriedad 
 //Universidad de Costa Rica
 //Programacion bajo plataformas abiertas
 //Ejercicio2 lab3
@@ -47,21 +49,54 @@ int findLargestLine(int matrix[][SIZE]) {
     return 1; // es un cuadrado mágico
 }
 
+
+
+//Creamos funcion para imprimir la matriz
+
+void printmatrix(int matrix[][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            printf("%d ", matrix[i][j]);
+        printf("\n");
+    }
+}
+
+
 int main() {
+
+	srand(time(NULL)); //con la libreria de tiempo creamos aleatoriedad
+
+
+
     int matrix[SIZE][SIZE] = {
         {8, 3, 4},
         {1, 5, 9},
         {6, 7, 2}
     };
-// En esta linea aplicamos la funcion que definimos como findlargestline a la matriz que creamos y la asignamos a largestline
-    int largestLine = findLargestLine(matrix);
-    
-// si todo se cumple entonces se va a ejecutar la funcion como la definimos y va a arrojar el resultado matriz es un cuadrado magico
 
-    if (largestLine)
-        printf("La matriz es un  cuadrado magico.\n");
+
+
+    printf("Matriz original:\n");
+    printmatrix(matrix);
+    if (findLargestLine(matrix))
+        printf("La matriz es un cuadrado magico.\n\n");
     else
-        printf("La matriz no un es cuadrado magico.\n");
+        printf("La matriz no es un cuadrado magico.\n\n");
+
+
+// Creacion de la matriz aleatoria
+ 
+    int randommatrix[SIZE][SIZE];
+    for (int i = 0; i < SIZE; i++)
+        for (int j = 0; j < SIZE; j++)
+            randommatrix[i][j] = rand() % 10 + 1; // Números entre 1 y 10
+
+    printf("Matriz aleatoria:\n");
+    printmatrix(randommatrix);
+    if (findLargestLine(randommatrix))
+        printf("La matriz aleatoria es un cuadrado magico.\n");
+    else
+        printf("La matriz aleatoria no es un cuadrado magico.\n");
 
     return 0;
 }
